@@ -1,0 +1,128 @@
+<svg id="border-svg" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <path id="path-outer" fill="none"></path>
+    </defs>
+
+    <text
+        id="t-outer"
+        font-family="Unbounded, sans-serif"
+        font-size="12"
+        font-weight="700"
+        letter-spacing="3.5"
+        fill="#f0ece4"
+    >
+        <textPath href="#path-outer" id="tp-outer" startOffset="0%">
+            ✦ БЕГУЩАЯ СТРОКА ✦ BORDER MARQUEE ✦ GSAP ANIMATION ✦ SVG TEXTPATH ✦
+            БЕГУЩАЯ СТРОКА ✦ BORDER MARQUEE ✦ GSAP ANIMATION ✦ SVG TEXTPATH ✦
+            БЕГУЩАЯ СТРОКА ✦ BORDER MARQUEE ✦ GSAP ANIMATION ✦ SVG TEXTPATH ✦
+            БЕГУЩАЯ СТРОКА ✦ BORDER MARQUEE ✦ GSAP ANIMATION ✦ SVG TEXTPATH ✦
+        </textPath>
+    </text>
+</svg>
+
+<script>
+    import gsap from "gsap";
+
+    // ── Path builder ────────────────────────────────────────────────────────
+    function rrPath(
+        x: number,
+        y: number,
+        width: number,
+        height: number,
+        radius: number,
+    ) {
+        return `
+          M${x + radius},${y}
+
+          L${x + width - radius},${y}
+          Q${x + width},${y} ${x + width},${y + radius}
+
+          L${x + width},${y + height - radius}
+          Q${x + width},${y + height} ${x + width - radius},${y + height}
+
+          L${x + radius},${y + height}
+          Q${x},${y + height} ${x},${y + height - radius}
+
+          L${x},${y + radius}
+          Q${x},${y} ${x + radius},${y}
+
+          Z`;
+    }
+
+    function buildPaths() {
+        const PADDING = 20;
+        const RADIUS = 36;
+
+        document
+            .getElementById("path-outer")
+            ?.setAttribute(
+                "d",
+                rrPath(
+                    PADDING,
+                    PADDING,
+                    window.innerWidth - PADDING * 2,
+                    window.innerHeight - PADDING * 2,
+                    RADIUS,
+                ),
+            );
+    }
+
+    buildPaths();
+    window.addEventListener("resize", buildPaths);
+
+    // ── Animation state ─────────────────────────────────────────────────────
+    const SPEED = 1;
+    const DIRECTION = 1;
+    let offset = 0;
+
+    gsap.ticker.add(() => {
+        const s = SPEED * DIRECTION;
+
+        // Text offsets
+        offset = (((offset + s * 0.016) % 100) + 100) % 100;
+
+        document
+            .getElementById("tp-outer")
+            ?.setAttribute("startOffset", offset + "%");
+    });
+</script>
+
+<style>
+    @import url("https://fonts.googleapis.com/css2?family=Unbounded:wght@300;700;900&display=swap");
+
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    :root {
+        --bg: #08080e;
+        --ink: #f0ece4;
+        --glow: #c8f564;
+        --accent: #ff4f6d;
+        --mid: #6b5aff;
+    }
+
+    html,
+    body {
+        width: 100%;
+        height: 100%;
+        background: var(--bg);
+        overflow: hidden;
+        font-family: "Unbounded", sans-serif;
+    }
+
+    /* Full-page SVG */
+    #border-svg {
+        position: fixed;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 10;
+        pointer-events: none;
+        overflow: visible;
+    }
+</style>

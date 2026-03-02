@@ -1,0 +1,23 @@
+<canvas id="ticker"></canvas>
+
+<script>
+    import { createTicker } from "../lib/ticker";
+
+    const canvas = document.getElementById("ticker");
+    if (canvas instanceof HTMLCanvasElement) {
+        const ticker = createTicker(canvas);
+        ticker.start();
+
+        // Опциональная очистка при выгрузке страницы
+        window.addEventListener("beforeunload", () => ticker.destroy());
+    }
+</script>
+
+<style>
+    canvas#ticker {
+        display: block;
+        position: fixed;
+        inset: 0;
+        pointer-events: none; /* Позволяет кликать через canvas на элементы страницы */
+    }
+</style>
