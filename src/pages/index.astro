@@ -1,7 +1,47 @@
 ---
+import "@fontsource-variable/bricolage-grotesque";
+import "@fontsource-variable/geist-mono";
+
 import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout>
-    <div>Hello, world!</div>
+    <div class="main">
+        <div class="header">
+            <span class="lastname">Mukhutdinov</span>
+            <span class="firstname">Ruslan</span>
+        </div>
+    </div>
 </Layout>
+
+<style>
+    .header {
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+
+        .firstname {
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-family: "Geist Mono Variable";
+            text-transform: lowercase;
+            font-size: 6vw;
+            font-weight: 300;
+            line-height: 5vw;
+            color: red;
+        }
+
+        .lastname {
+            position: absolute;
+            right: 0;
+            top: 0;
+            font-family: "Bricolage Grotesque Variable";
+            text-transform: uppercase;
+            font-size: 11vw;
+            font-weight: 900;
+            letter-spacing: -5%;
+            line-height: 7vw;
+        }
+    }
+</style>

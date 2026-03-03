@@ -1,23 +1,117 @@
-<canvas id="ticker"></canvas>
+---
+import "@fontsource-variable/doto";
+---
+
+<svg id="border-svg" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <path id="path" fill="none"></path>
+    </defs>
+
+    <g clip-path="url(#clip-path)">
+        <text id="t-outer-1" class="text">
+            <textPath href="#path" id="text-path-1" startOffset="0%"></textPath>
+        </text>
+
+        <text class="text" id="t-outer-2">
+            <textPath href="#path" id="text-path-2" startOffset="0%"></textPath>
+        </text>
+    </g>
+</svg>
 
 <script>
-    import { createTicker } from "../lib/ticker";
+    import gsap from "gsap";
 
-    const canvas = document.getElementById("ticker");
-    if (canvas instanceof HTMLCanvasElement) {
-        const ticker = createTicker(canvas);
-        ticker.start();
+    const WORDS = ["FRONTEND", "RUSLAN", "BAD TICKER", "MUKHUTDINOV"];
 
-        // Опциональная очистка при выгрузке страницы
-        window.addEventListener("beforeunload", () => ticker.destroy());
+    const path = document.getElementById("path");
+    const clipRect = document.getElementById("clip-rect");
+    const text_1 = document.getElementById("text-path-1");
+    const text_2 = document.getElementById("text-path-2");
+
+    const PADDING = 20;
+    const RADIUS = 36;
+
+    function buildPaths() {
+        const height = window.innerHeight - PADDING * 2;
+        const width = window.innerWidth - PADDING * 2;
+        const [x, y] = [PADDING, PADDING];
+
+        const pathData = `
+          M${x + RADIUS},${y}
+
+          L${x + width - RADIUS},${y}
+          Q${x + width},${y} ${x + width},${y + RADIUS}
+
+          L${x + width},${y + height - RADIUS}
+          Q${x + width},${y + height} ${x + width - RADIUS},${y + height}
+
+          L${x + RADIUS},${y + height}
+          Q${x},${y + height} ${x},${y + height - RADIUS}
+
+          L${x},${y + RADIUS}
+          Q${x},${y} ${x + RADIUS},${y}
+
+          Z
+        `;
+
+        path?.setAttribute("d", pathData);
+        clipRect?.setAttribute("d", pathData);
     }
+
+    const buildText = () => {
+        const height = window.innerHeight;
+        const width = window.innerWidth;
+        const perimeter = 2 * (height + width);
+
+        const textContent = `${Array(5).fill(WORDS).flat().join(" - ")} -`;
+
+        if (text_1 && text_2) {
+            [text_1.textContent, text_2.textContent] = [
+                textContent,
+                textContent,
+            ];
+
+            text_1?.setAttribute("textLength", `${perimeter}px`);
+            text_2?.setAttribute("textLength", `${perimeter}px`);
+        }
+    };
+
+    const build = () => {
+        buildPaths();
+        buildText();
+    };
+
+    build();
+
+    window.addEventListener("resize", build);
+
+    gsap.timeline({ repeat: -1 }).from("#text-path-1", {
+        attr: { startOffset: "-105%" },
+        duration: 40,
+        ease: "none",
+        stagger: 15,
+    });
+    gsap.timeline({ repeat: -1 }).to("#text-path-2", {
+        attr: { startOffset: "105%" },
+        duration: 40,
+        ease: "none",
+        stagger: 15,
+    });
 </script>
 
 <style>
-    canvas#ticker {
-        display: block;
+    #border-svg {
         position: fixed;
         inset: 0;
-        pointer-events: none; /* Позволяет кликать через canvas на элементы страницы */
+        pointer-events: none;
+        overflow: visible;
+    }
+
+    .text {
+        dominant-baseline: middle;
+        font-family: "Doto Variable", sans-serif;
+        font-size: 28px;
+        font-weight: 500;
+        fill: #fff;
     }
 </style>
