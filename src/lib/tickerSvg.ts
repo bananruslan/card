@@ -1,46 +1,61 @@
 import gsap from "gsap";
 
 // ── Path builder ────────────────────────────────────────────────────────
-function rrPath(x, y, w, h, r) {
-  return `M${x+r},${y} L${x+w-r},${y} Q${x+w},${y} ${x+w},${y+r}
-          L${x+w},${y+h-r} Q${x+w},${y+h} ${x+w-r},${y+h}
-          L${x+r},${y+h} Q${x},${y+h} ${x},${y+h-r}
-          L${x},${y+r} Q${x},${y} ${x+r},${y} Z`;
+function rrPath(x: number, y: number, width: number, height: number, radius: number) {
+  return `
+    M${x + radius},${y}
+
+    L${x + width - radius},${y}
+    Q${x + width},${y} ${x + width},${y + radius}
+
+    L${x + width},${y + height - radius}
+    Q${x + width},${y + height} ${x + width - radius},${y + height}
+
+    L${x + radius},${y + height}
+    Q${x},${y + height} ${x},${y + height - radius}
+
+    L${x},${y + radius}
+    Q${x},${y} ${x + radius},${y}
+
+    Z`;
 }
 
-const PADS = [20];
-const RADII = [36];
 
 function buildPaths() {
-  const W = window.innerWidth, H = window.innerHeight;
-  ['path-outer'].forEach((id, i) => {
-    const p = PADS[i];
-    document.getElementById(id).setAttribute('d',
-      rrPath(p, p, W - p*2, H - p*2, RADII[i]));
-  });
+  const path = document.getElementById('path-outer');
 
+  const width = window.innerWidth;
+  const height = window.innerHeight;
+  const padding = 20;
+  const radius = 36;
+
+
+  if (path) {
+    path.setAttribute('d', rrPath(
+      padding,
+      padding,
+      width - padding * 2,
+      height - padding * 2,
+      radius
+    ));
+  }
 }
 
 buildPaths();
 window.addEventListener('resize', buildPaths);
 
 // ── Animation state ─────────────────────────────────────────────────────
-let speed = 1, dir = 1;
-let o1 = 0;
-
-function getPt(pathId, frac) {
-  const el = document.getElementById(pathId);
-  const len = el.getTotalLength();
-  return el.getPointAtLength(((frac % 1) + 1) % 1 * len);
-}
+const speed = 1;
+const direction = 1;
+let offset = 0;
 
 gsap.ticker.add(() => {
-  const s = speed * dir;
+  const textPath = document.getElementById('tp-outer');
+  offset = ((offset + speed * direction * 0.016) % 100);
 
-  // Text offsets
-  o1 = ((o1 + s * 0.016) % 100 + 100) % 100;
-
-  document.getElementById('tp-outer').setAttribute('startOffset', o1 + '%');
+  if (textPath) {
+    textPath.setAttribute('startOffset', offset + '%');
+  }
 });
 
 // ── Entrance ──────────────────────────────────────────────────────────
