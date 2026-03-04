@@ -14,11 +14,16 @@ import Ticker from "../components/Ticker.astro";
         <title>Ruslan Mukhutdinov</title>
     </head>
     <body>
-        <div class="container">
-            <slot />
+        <div class="unsupported-screen">unsupported screen :)</div>
+
+        <div class="layout">
+            <div class="container">
+                <slot />
+            </div>
+            <Ticker />
+            <div class="shadow"></div>
+            <div class="noise"></div>
         </div>
-        <Ticker />
-        <div class="shadow"></div>
     </body>
 </html>
 
@@ -34,6 +39,11 @@ import Ticker from "../components/Ticker.astro";
     }
     body {
         display: flex;
+    }
+
+    .layout {
+        display: flex;
+        width: 100%;
     }
 
     .container {
@@ -52,5 +62,37 @@ import Ticker from "../components/Ticker.astro";
         inset: 36px;
         pointer-events: none;
         border-radius: 16px;
+    }
+
+    .noise {
+        background-image: url(/noise.png);
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        opacity: 0.2;
+    }
+
+    .unsupported-screen {
+        position: fixed;
+        inset: 0;
+        background: black;
+        color: white;
+
+        display: none;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+
+        z-index: 9999;
+    }
+
+    @media (max-width: 1199px) {
+        .unsupported-screen {
+            display: flex;
+        }
+
+        .layout {
+            display: none;
+        }
     }
 </style>

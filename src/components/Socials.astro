@@ -7,12 +7,12 @@ const socials: ({ label: string; href: string } | "divider")[] = [
     "divider",
     {
         label: "github",
-        href: "https://github.com/",
+        href: "https://github.com/bananruslan",
     },
     "divider",
     {
         label: "linkedin",
-        href: "https://linkedin.com/",
+        href: "https://www.linkedin.com/in/ruslan-banan/",
     },
     "divider",
     {
@@ -28,7 +28,7 @@ const socials: ({ label: string; href: string } | "divider")[] = [
             social === "divider" ? (
                 <div class="divider" />
             ) : (
-                <a href="{social.href}" target="_blank" class="social-link">
+                <a href={social.href} target="_blank" class="social-link">
                     {social.label}
                 </a>
             ),
@@ -43,7 +43,6 @@ const socials: ({ label: string; href: string } | "divider")[] = [
         justify-content: center;
         align-items: center;
         gap: 26px;
-        margin-top: 9.5vw;
         font-size: 24px;
         font-weight: 200;
 

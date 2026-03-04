@@ -1,1 +1,54 @@
-<div class="greetings"></div>
+---
+import "@fontsource/smooch";
+---
+
+<div class="greetings">
+    <div class="wrapper">
+        <p>
+            Hello, everyone. I am a <span class="bold">front-end developer</span
+            > with <span class="blood">Voices in my head!</span>
+        </p>
+
+        <p>
+            I am interested in developing with <span class="bold"
+                >Typescript</span
+            >, <span class="bold">Vue</span>, <span class="bold">React</span>,
+            etc.
+        </p>
+    </div>
+</div>
+
+<style>
+    .greetings {
+        display: inline-flex;
+        justify-content: center;
+        width: 100%;
+        font-size: 24px;
+        font-weight: 200;
+        text-indent: 12px;
+        padding-top: 12vh;
+
+        .wrapper {
+            width: 600px;
+
+            p {
+                position: relative;
+            }
+
+            .bold {
+                font-weight: 600;
+            }
+
+            .blood {
+                position: absolute;
+                right: 0;
+                top: 0;
+                white-space: nowrap;
+                transform: translate(75px, -10px) rotate(-5deg);
+                font-family: "Smooch", sans-serif;
+                font-size: 48px;
+                color: #ff0000;
+            }
+        }
+    }
+</style>

@@ -3,6 +3,7 @@ import "@fontsource-variable/geist-mono";
 
 import Layout from "../layouts/Layout.astro";
 import Socials from "../components/Socials.astro";
+import Greetings from "../components/Greetings.astro";
 ---
 
 <Layout>
@@ -35,7 +36,10 @@ import Socials from "../components/Socials.astro";
             <span class="firstname">Ruslan</span>
         </div>
 
-        <Socials />
+        <div class="info">
+            <Socials />
+            <Greetings />
+        </div>
     </div>
 </Layout>
 
@@ -94,5 +98,12 @@ import Socials from "../components/Socials.astro";
             letter-spacing: -5%;
             line-height: 7vw;
         }
+    }
+
+    .info {
+        display: grid;
+        grid-template-rows: auto 1fr;
+        height: stretch;
+        padding-top: 9.5vw;
     }
 </style>
