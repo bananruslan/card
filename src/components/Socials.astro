@@ -1,0 +1,61 @@
+---
+const socials: ({ label: string; href: string } | "divider")[] = [
+    {
+        label: "email",
+        href: "mailto:mukhutdinov.ruslan@gmail.com",
+    },
+    "divider",
+    {
+        label: "github",
+        href: "https://github.com/",
+    },
+    "divider",
+    {
+        label: "linkedin",
+        href: "https://linkedin.com/",
+    },
+    "divider",
+    {
+        label: "telegram",
+        href: "https://t.me/zzzveroboy",
+    },
+];
+---
+
+<div class="socials">
+    {
+        socials.map((social) =>
+            social === "divider" ? (
+                <div class="divider" />
+            ) : (
+                <a href="{social.href}" target="_blank" class="social-link">
+                    {social.label}
+                </a>
+            ),
+        )
+    }
+</div>
+
+<style>
+    .socials {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 26px;
+        margin-top: 9.5vw;
+        font-size: 24px;
+        font-weight: 200;
+
+        .social-link {
+            color: #000;
+        }
+
+        .divider {
+            width: 6px;
+            height: 6px;
+            background-color: #000;
+            border-radius: 50%;
+        }
+    }
+</style>

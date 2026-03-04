@@ -1,20 +1,72 @@
 ---
-import "@fontsource-variable/bricolage-grotesque";
 import "@fontsource-variable/geist-mono";
 
 import Layout from "../layouts/Layout.astro";
+import Socials from "../components/Socials.astro";
 ---
 
 <Layout>
     <div class="main">
+        <div class="photos">
+            <img
+                src="photo-1.png"
+                class="photo photo-1"
+                alt="Ruslan Mukhutdinov"
+            />
+            <img
+                src="photo-2.png"
+                class="photo photo-2"
+                alt="Ruslan Mukhutdinov"
+            />
+            <img
+                src="photo-3.png"
+                class="photo photo-3"
+                alt="Ruslan Mukhutdinov"
+            />
+            <img
+                src="photo-4.png"
+                class="photo photo-4"
+                alt="Ruslan Mukhutdinov"
+            />
+        </div>
+
         <div class="header">
             <span class="lastname">Mukhutdinov</span>
             <span class="firstname">Ruslan</span>
         </div>
+
+        <Socials />
     </div>
 </Layout>
 
 <style>
+    .main {
+        height: 100%;
+
+        .photos {
+            .photo {
+                position: absolute;
+                width: 320px;
+            }
+
+            .photo-1 {
+                left: -38px;
+                top: -28px;
+            }
+            .photo-2 {
+                right: -37px;
+                top: -38px;
+            }
+            .photo-3 {
+                left: -38px;
+                bottom: -36px;
+            }
+            .photo-4 {
+                right: -37px;
+                bottom: -37px;
+            }
+        }
+    }
     .header {
         position: relative;
         display: flex;
@@ -36,7 +88,6 @@ import Layout from "../layouts/Layout.astro";
             position: absolute;
             right: 0;
             top: 0;
-            font-family: "Bricolage Grotesque Variable";
             text-transform: uppercase;
             font-size: 11vw;
             font-weight: 900;
