@@ -1,6 +1,7 @@
 ---
 import "@fontsource-variable/bricolage-grotesque";
 import Ticker from "../components/Ticker.astro";
+import Socials from "../components/Socials.astro";
 ---
 
 <!doctype html>
@@ -18,7 +19,10 @@ import Ticker from "../components/Ticker.astro";
             data-website-id="23bc5278-17d4-4f39-a805-42d87b02267e"></script>
     </head>
     <body>
-        <div class="unsupported-screen">unsupported screen :)</div>
+        <div class="unsupported-screen">
+            unsupported screen :)
+            <Socials mobile />
+        </div>
 
         <div class="layout">
             <div class="container">
@@ -86,11 +90,16 @@ import Ticker from "../components/Ticker.astro";
         justify-content: center;
         align-items: center;
         text-align: center;
-
         z-index: 9999;
+        flex-direction: column;
+        gap: 32px;
     }
 
     @media (max-width: 1199px) {
+        body {
+            background: black;
+        }
+
         .unsupported-screen {
             display: flex;
         }

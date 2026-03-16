@@ -25,9 +25,11 @@ const socials: ({ label: string; href: string } | "divider")[] = [
         href: "https://career.habr.com/spar-175733",
     },
 ];
+
+const { mobile } = Astro.props;
 ---
 
-<div class="socials">
+<div class={"socials" + (mobile ? " mobile" : "")}>
     {
         socials.map((social) =>
             social === "divider" ? (
@@ -56,10 +58,28 @@ const socials: ({ label: string; href: string } | "divider")[] = [
         }
 
         .divider {
-            width: 6px;
+            min-width: 6px;
             height: 6px;
             background-color: #000;
             border-radius: 50%;
+        }
+
+        &.mobile {
+            flex-direction: column;
+            font-size: inherit;
+            align-items: flex-end;
+            position: absolute;
+            right: 24px;
+            bottom: 64px;
+            gap: 12px;
+
+            .social-link {
+                color: #fff;
+            }
+
+            .divider {
+                background-color: #fff;
+            }
         }
     }
 </style>
