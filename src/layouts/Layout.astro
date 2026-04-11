@@ -4,7 +4,13 @@ import Ticker from "../components/Ticker.astro";
 import Socials from "../components/Socials.astro";
 ---
 
-<!doctype html>
+<script>
+    window.addEventListener("load", () => {
+        const loader = document.querySelector(".loader");
+        loader.style.opacity = 0;
+    });
+</script>
+
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
@@ -18,6 +24,7 @@ import Socials from "../components/Socials.astro";
             src="https://analytics.webbaboon.ru/script.js"
             data-website-id="23bc5278-17d4-4f39-a805-42d87b02267e"></script>
     </head>
+
     <body>
         <div class="unsupported-screen">
             unsupported screen :)
@@ -31,6 +38,7 @@ import Socials from "../components/Socials.astro";
             <Ticker />
             <div class="shadow"></div>
             <div class="noise"></div>
+            <div class="loader"></div>
         </div>
     </body>
 </html>
@@ -79,6 +87,19 @@ import Socials from "../components/Socials.astro";
         inset: 0;
         pointer-events: none;
         image-rendering: pixelated;
+    }
+
+    .loader {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        color: #fff;
+        background: black;
+        opacity: 1;
+        transition: opacity 1s ease-out;
     }
 
     .unsupported-screen {
